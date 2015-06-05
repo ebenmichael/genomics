@@ -1,5 +1,5 @@
 
-public class Kmer {
+public class Kmer implements Comparable<Kmer>{
 	
 	Base[] kmer;
 	
@@ -21,6 +21,11 @@ public class Kmer {
 	public Kmer(Kmer k) {
 		/**Clone constructor**/
 		this(k.toString());
+	}
+	
+	public Kmer(Base[] k) {
+		/**Construct Kmer from Base array**/
+		kmer = k;
 	}
 	
 	public String toString() {

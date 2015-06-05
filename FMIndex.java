@@ -13,34 +13,42 @@ public class FMIndex {
 		//add start symbol $ and convert sequence into a kmer 
 		Kmer kSeq = new Kmer(sequence + "$");
 		//do the burrows-wheeler transform
-		Kmer kLast = this.bw(kSeq);
-		//convert to base array and passing to last
-		last = kLast.toBaseArray();
+		last = this.bw(kSeq);
 		//get ckptArray and countArray
 		this.getCkptArray();
 		
 	}
 	
-	private Kmer bw(Kmer input) {
+	private Base[] bw(Kmer input) {
 		/**Do the burrows-wheeler transform using the burrows-wheeler matrix**/
-		//index through each rotation and keep the one that is largest
-		//the end result will be the left most column of the burros-wheeler
-		//matrix, which is the transform
+		//rotate matrices and sort rows
 		Kmer max = input; 
 		Kmer prevKmer = input;
-		for(int i = 1; i < input.length(); i++) {
+		
+		//bwm matrix 
+		Kmer[] bwm = new Kmer[input.length()];
+		
+		for(int i = 0; i < input.length(); i++) {
 			//rotate Kmer
 
 			Kmer currKmer = this.rotateKmer(prevKmer);
-			//check if rotation is higher lexographically than max
-
-			if(currKmer.compareTo(max) > 0) {
-				max = currKmer;
-			}
+			
+			bwm[i] = currKmer;
+			
 			prevKmer = currKmer;
 		}
-	
-		return(max);
+		
+		//sort rows
+		
+		Arrays.sort(bwm);
+		
+		//get last column
+		Base[] l = new Base[input.length()];
+		for(int i = 0; i < input.length(); i++) {
+			l[i] = bwm[i].toBaseArray()[input.length() - 1];
+		}
+		
+		return(l);
 	}
 	
 	private Kmer rotateKmer(Kmer kmer) {
@@ -127,12 +135,16 @@ public class FMIndex {
 		
 		//obtain the start and end index for that letter to search last column
 		int startIndex = getFIndex(lastBase, 0);
-		int endIndex = getFIndex(lastBase, countArray[baseConversion(lastBase)]);
+		System.out.println(countArray[baseConversion(lastBase)] - 1);
+		int endIndex = getFIndex(lastBase, countArray[baseConversion(lastBase)] - 1);
 		
 		String base2 = mer.baseAt(kmerLength - 2).toString();
 		int startRank = getLRank(startIndex, base2);
 		int endRank = getLRank(endIndex, base2);
-		System.out.println("base2: " + base2);
+		System.out.println("startIndex: " + startIndex);
+		System.out.println("endIndex: " + endIndex);
+		System.out.println("startRank: " + startRank);
+		System.out.println("endRank: " + endRank);
 		
 		//immediately check if the kmer is not present
 		if(endRank < 0) {
@@ -161,6 +173,7 @@ public class FMIndex {
 		//to see if the k-mer exists in the reference,  
 		//until the sequence has been found or DNE
 		while(!baseStack.isEmpty() && sequenceFound == false){
+			
 			sequenceFound = dfsContains(baseStack.removeLast(), mer.toString().substring(0, kmerLength-2));
 		}
 		if(sequenceFound == true)
@@ -181,7 +194,7 @@ public class FMIndex {
 			String nextLetter = Character.toString(s.charAt(s.length()-1));
 			int rank = b.rank();
 			int fIndex = getFIndex(b.toString(),rank);
-			if(last[fIndex].toString().equals(nextLetter))
+			if(!last[fIndex].toString().equals(nextLetter) || last[fIndex].toString().equals("$"))
 				return false;
 			else{	
 				int nextRank = getLRank(fIndex, nextLetter);
@@ -238,7 +251,7 @@ public class FMIndex {
 			currentNum = ckptArray[baseConversion(base)][ckptIndex/ckptJump];
 			System.out.println(currentNum);
 			for(int i = ckptIndex/ckptJump + 1 ; i <= Findex ; i++){
-				System.out.println("currBase: " + last[i]);
+				
 				
 				if(last[i].toString().equals(base))
 					currentNum++;
