@@ -5,33 +5,38 @@ public class Base implements Comparable<Base>{
 	
 	public Base(String nucleotide) {
 		/**Constructor for string input**/
-		 
-		//declare the BitSet array
-		base = new BitSet(2);
-		//go through each case for the nucleotide and instantiate the array 
-		//A = 00
-		//C = 01
-		//G = 10
-		//T = 11
-		if(nucleotide.equals("A")) {
-			
-		}
-		else if(nucleotide.equals("C")) {
-			base.set(0);
-		}
-		else if(nucleotide.equals("G")) {
-			base.set(1);
-		}
-		else if(nucleotide.equals("T")) {
-			base.set(0);
-			base.set(1);
+		//if nucleotide is the start symbol $, create an empty Base 
+		
+		if(nucleotide.equals("$")) {
+			base = null;
 		}
 		else {
-			IllegalArgumentException e; 
-			e = new IllegalArgumentException("Only A,C,G,T can be entered");
-			System.out.println(nucleotide);
-			throw e;
+			//declare the BitSet array
+			base = new BitSet(2);
+			//go through each case for the nucleotide and instantiate the array 
+			//A = 00
+			//C = 01
+			//G = 10
+			//T = 11
+			if(nucleotide.equals("A")) {
 
+			}
+			else if(nucleotide.equals("C")) {
+				base.set(0);
+			}
+			else if(nucleotide.equals("G")) {
+				base.set(1);
+			}
+			else if(nucleotide.equals("T")) {
+				base.set(0);
+				base.set(1);
+			}
+			else {
+				IllegalArgumentException e; 
+				e = new IllegalArgumentException("Only A,C,G,T can be entered");
+				throw e;
+
+			}
 		}
 		
 	}
@@ -59,9 +64,10 @@ public class Base implements Comparable<Base>{
 		t.set(0);
 		t.set(1);
 		
-		if(this.base.equals(a)) { return("A");}
-		if(this.base.equals(c)) { return("C");}
-		if(this.base.equals(g)) { return("G");}
+		if(this.base == null) { return("$");}
+		else if(this.base.equals(a)) { return("A");}
+		else if(this.base.equals(c)) { return("C");}
+		else if(this.base.equals(g)) { return("G");}
 		else { return("T");}
 		
 	}

@@ -18,6 +18,11 @@ public class Kmer {
 		}
 	}
 	
+	public Kmer(Kmer k) {
+		/**Clone constructor**/
+		this(k.toString());
+	}
+	
 	public String toString() {
 		/**Returns a string representation of the k-mer**/
 		//initialize string
@@ -55,6 +60,16 @@ public class Kmer {
 	public Base baseAt(int i) {
 		/**Returns the Base at position i**/
 		return(kmer[i]);
+	}
+	
+	public void setBaseAt(Base b, int i) {
+		/**Set the base at location i to be b **/
+		kmer[i] = b;
+	}
+	
+	public Base[] toBaseArray() {
+		/**Converts a kmer into an array of bases**/
+		return(this.kmer);
 	}
 
 }

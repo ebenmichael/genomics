@@ -1,16 +1,116 @@
 import java.util.*;
+
 public class FMIndex {
 	int[] countArray;
-	int ckptJump = 100;
+	int ckptJump = 1;
 	int[][] ckptArray;
 	Base[] last;
 	
 	public FMIndex(String sequence){
+		/**Constructor. Gets the Burrows-Wheeler transform for the FM Index.
+		 * Also gets the checkpoint array
+		 */
+		//add start symbol $ and convert sequence into a kmer 
+		Kmer kSeq = new Kmer("$" + sequence);
+		//do the burrows-wheeler transform
+		Kmer kLast = this.bw(kSeq);
+		//convert to base array and passing to last
+		last = kLast.toBaseArray();
+		//get ckptArray and countArray
+		this.getCkptArray();
+		
+	}
 	
+	private Kmer bw(Kmer input) {
+		/**Do the burrows-wheeler transform using the burrows-wheeler matrix**/
+		//index through each rotation and keep the one that is largest
+		//the end result will be the left most column of the burros-wheeler
+		//matrix, which is the transform
+		Kmer max = input; 
+		Kmer prevKmer = input;
+		for(int i = 1; i < input.length(); i++) {
+			//rotate Kmer
+
+			Kmer currKmer = this.rotateKmer(prevKmer);
+			//check if rotation is higher lexographically than max
+
+			if(currKmer.compareTo(max) > 0) {
+				max = currKmer;
+			}
+			prevKmer = currKmer;
+		}
+	
+		return(max);
+	}
+	
+	private Kmer rotateKmer(Kmer kmer) {
+		/**Puts the end of the kmer at the beginning and does the 
+		 * cyclic permutation**/
+		//copy kmer into a new Kmer object
+		Kmer kCopy = new Kmer(kmer);
+		Base temp = kCopy.baseAt(kCopy.length() -1);
+		
+		for(int i = kCopy.length() - 1; i > 0; i--) {
+			kCopy.setBaseAt(kCopy.baseAt(i - 1), i);
+		}
+		
+		//set temp into the front
+		
+		kCopy.setBaseAt(temp,0);
+		
+		return(kCopy);
+	}
+	
+	private void getCkptArray() {
+		/**Computes the checkpoint Array **/
+		//initialize the array
+		int numRows = last.length / this.ckptJump;
+		int[][] arr = new int[4][numRows];
+		//create and populate counts hashtable
+		Hashtable<String,Integer> counts = new Hashtable<String,Integer>(4);
+		counts.put("A", 0);
+		counts.put("C", 0);
+		counts.put("G", 0);
+		counts.put("T", 0);
+		
+		//go through last and count the values of the bases, adding to arr
+		//every ckptJump steps
+		
+		for(int row = 0; row < this.last.length; row++) {
+			//get Base as string
+			String key = this.last[row].toString();
+			//pass this iteration if key is the start index
+			if(key.equals("$")) {
+				continue;
+			}
+			//add to the appropriate count
+			counts.put(key, counts.get(key) + 1);
+			//add current counts to ckptArray if row % ckptJump = 0
+			if(row % ckptJump == 0) {
+				for(int b = 0; b < 4; b++) {
+					arr[b][ row / this.ckptJump] = counts.get(intToBase(b));
+				}
+			}
+		}
+		
+		//set the chekpoint array to arr
+		this.ckptArray = arr;
+		//set countArray to the values in counts
+		this.countArray = new int[4];
+		for(int b = 0; b < 4; b++) {
+			this.countArray[b] = counts.get(intToBase(b));
+		}
+		
+		
+	}
+	
+	public Base[] getLast() {
+		/**Returns the last column of the burrows-wheeler matrix**/
+		return(this.last);
 	}
 	
 	public boolean contains(String s){
-		return true;
+		return(this.contains(new Kmer(s)));
 	}
 	
 	public boolean contains(Kmer mer){
@@ -158,6 +258,29 @@ public class FMIndex {
 		else{
 			System.out.println("Error in baseConversion function: not A,T,C,or G");
 			return -1;
+		}
+	}
+	/**
+	 * @param index of base in countArray and ckptArray
+	 * @returns base corresponding to index
+	 **/
+	private String intToBase(int index) {
+		if(index == 0) {
+			return("A");
+		}
+		else if(index == 1) {
+			return("C");
+		}
+		else if(index == 2) {
+			return("G");
+		}
+		else if(index == 3) {
+			return("T");
+		}
+		else {
+			IllegalArgumentException e;
+			e = new IllegalArgumentException("Only 0,1,2,3 can be entered");
+			throw e;
 		}
 	}
 }
