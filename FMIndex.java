@@ -81,6 +81,13 @@ public class FMIndex {
 			String key = this.last[row].toString();
 			//pass this iteration if key is the start index
 			if(key.equals("$")) {
+				//account for the case where $ falls on a row which is in the
+				//checkpoint array
+				if(row % ckptJump == 0){
+					for(int b = 0; b < 4; b++) {
+						arr[b][ row / this.ckptJump] = counts.get(intToBase(b));
+					}					
+				}
 				continue;
 			}
 			//add to the appropriate count
@@ -125,10 +132,13 @@ public class FMIndex {
 		String base2 = mer.baseAt(kmerLength - 2).toString();
 		int startRank = getLRank(startIndex, base2);
 		int endRank = getLRank(endIndex, base2);
+		System.out.println("base2: " + base2);
 		
 		//immediately check if the kmer is not present
-		if(endRank < 0)
-			return false;		
+		if(endRank < 0) {
+			System.out.println("endRank was 0");
+			return(false);
+		}		
 		
 		//check if the start rank is negative, if it is, correct it
 		LinkedList<RankedBase> baseStack = new LinkedList<RankedBase>();
@@ -171,7 +181,7 @@ public class FMIndex {
 			String nextLetter = Character.toString(s.charAt(s.length()-1));
 			int rank = b.rank();
 			int fIndex = getFIndex(b.toString(),rank);
-			if(last[fIndex].toString() != nextLetter)
+			if(last[fIndex].toString().equals(nextLetter))
 				return false;
 			else{	
 				int nextRank = getLRank(fIndex, nextLetter);
@@ -187,6 +197,8 @@ public class FMIndex {
 	 * @return the index of the specified letter and rank
 	 */
 	private int getFIndex(String letter, int rank){
+		System.out.println("Base: " + letter);
+		System.out.println("rank: " + rank);
 		if(letter.equals("A"))
 			return (1+rank);
 		else if(letter.equals("C"))
@@ -218,12 +230,16 @@ public class FMIndex {
 	private int getLRank(int Findex, String base){
 		//get the distance between the index and the last checkpoint
 		int dist = distanceToLastCkpt(Findex);
+		System.out.println("Distance " + dist);
 		int ckptIndex, currentNum;
 		//closer to prior checkpoint
-		if(dist < (ckptJump/2)){
+		if(dist <= (ckptJump/2)){
 			ckptIndex = Findex - dist;
 			currentNum = ckptArray[baseConversion(base)][ckptIndex/ckptJump];
+			System.out.println(currentNum);
 			for(int i = ckptIndex/ckptJump + 1 ; i <= Findex ; i++){
+				System.out.println("currBase: " + last[i]);
+				
 				if(last[i].toString().equals(base))
 					currentNum++;
 			}

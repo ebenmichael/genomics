@@ -26,7 +26,7 @@ public class RankedBase extends Base {
 	public String toString() {
 		/**Returns a String representation**/
 		
-		return(super.toString() + String.valueOf(rank));
+		return(super.toString());
 	}
 
 }

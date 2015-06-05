@@ -14,6 +14,15 @@ public class baseTest {
 		for(Base b : last) {
 			System.out.println(b);
 		}
+		System.out.println("----------------------");
+		
+		int[][] ckptarr = fm.ckptArray;
+		for(int[] base : ckptarr) {
+			for(int rank : base) {
+				System.out.print(rank);
+			}
+			System.out.println();
+		}
 		System.out.println(fm.contains("CTA"));
 	
 	}
