@@ -11,7 +11,7 @@ public class FMIndex {
 		 * Also gets the checkpoint array
 		 */
 		//add start symbol $ and convert sequence into a kmer 
-		Kmer kSeq = new Kmer("$" + sequence);
+		Kmer kSeq = new Kmer(sequence + "$");
 		//do the burrows-wheeler transform
 		Kmer kLast = this.bw(kSeq);
 		//convert to base array and passing to last
