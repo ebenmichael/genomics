@@ -4,11 +4,11 @@ import java.util.LinkedList;
 
 public class FMIndex {
     int[] countArray;
-    int ckptJump = 5;
+    int ckptJump;
     int[][] ckptArray;
     Base[] last;
     
-    public FMIndex(String sequence){
+    public FMIndex(String sequence, int jump){
         /**Constructor. Gets the Burrows-Wheeler transform for the FM Index.
          * Also gets the checkpoint array
          */
@@ -16,6 +16,7 @@ public class FMIndex {
         //Kmer kSeq = new Kmer(sequence + "$");
         //do the burrows-wheeler transform
         last = this.bw(sequence + "$");
+        this.ckptJump = jump;
         //get ckptArray and countArray
         this.getCkptArray();
     }
@@ -148,23 +149,16 @@ public class FMIndex {
         int startIndex = getFIndex(lastBase, 0);
         int endIndex = getFIndex(lastBase, countArray[baseConversion(lastBase)] - 1);
         
-        System.out.println("startindex " + startIndex);
-        System.out.println("endindex " + endIndex);
-        
         String base2 = mer.baseAt(kmerLength - 2).toString();
         
         int startRank = getLRank(startIndex-1, base2);
         int endRank = getLRank(endIndex, base2);
-        
-        System.out.println("startRank = "+startRank);
-        System.out.println("endRank = "+endRank);
         
         if(startRank == endRank)
             return false;
         
         //immediately check if the kmer is not present
         if(endRank < 0) {
-            System.out.println("endRank was 0");
             return(false);
         }
         
@@ -200,7 +194,6 @@ public class FMIndex {
      * @return contains the string or not
      */
     private boolean dfsContains(RankedBase b, String s){
-        System.out.println("DFS : Rank = " + b.rank() + " Base = " + b.toString() + " String = " + s);
         if(s.length() == 0)
             return true;
         else{
@@ -224,19 +217,15 @@ public class FMIndex {
      */
     private int getFIndex(String letter, int rank){
         if(letter.equals("A")){
-            System.out.println("FIndex : " + letter + " " + rank + " = " + (1+rank));
             return (1+rank);
         }
         else if(letter.equals("C")){
-            System.out.println("FIndex : " + letter + " " + rank + " = " + (1 + countArray[0] + rank));
             return (1 + countArray[0] + rank);
         }
         else if(letter.equals("G")){
-            System.out.println("FIndex : " + letter + " " + rank + " = " + (1 + countArray[0] + countArray[1]+ rank));
             return (1 + countArray[0] + countArray[1] + rank);
         }
         else if (letter.equals("T")){
-            System.out.println("FIndex : " + letter + " " + rank + " = " + (1 + countArray[0] + countArray[1]+ countArray[2]+ rank));
             return (1 + countArray[0] + countArray[1] + countArray[2] + rank);
         }
         else{
@@ -260,7 +249,6 @@ public class FMIndex {
      * @return the rank
      */
     private int getLRank(int Findex, String base){
-        System.out.println("LRank " + Findex + " " + base);
         //get the distance between the index and the last checkpoint
         int dist = distanceToLastCkpt(Findex);
         int ckptIndex, currentNum;
@@ -270,12 +258,10 @@ public class FMIndex {
             ckptIndex = Findex - dist;
             currentNum = ckptArray[baseConversion(base)][ckptIndex/ckptJump];
             for(int i = ckptIndex + 1 ; i <= Findex ; i++){
-                System.out.println("LRANK i= " + i);
                 if(last[i].toString().equals(base)){
                     currentNum++;
                 }
             }
-            System.out.println("L rank returned: "+ (currentNum - 1));
             return currentNum - 1;
             
             //closer to next checkpoint
@@ -284,11 +270,9 @@ public class FMIndex {
             ckptIndex = (Findex-dist) + ckptJump;
             currentNum = ckptArray[baseConversion(base)][ckptIndex/ckptJump];
             for(int i = ckptIndex ; i > Findex ; i--){
-                System.out.println("LRANK i= " + i);
                 if(last[i].toString().equals(base))
                     currentNum--;
             }
-            System.out.println("L rank returned: "+ (currentNum - 1));
             return currentNum - 1;
         }
     }
