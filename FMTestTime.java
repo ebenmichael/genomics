@@ -33,8 +33,8 @@ public class FMTestTime {
 		
 		String type = args[5];
 		//Time the time to create the FM Index for given lengths
-		if(type.equals("FMCreate")) {
-			for(int i = 0; i < numTrials; i++) {
+		if(type.equals("create")) {
+			for(int i = 1; i <= numTrials; i++) {
 				final long startTime = System.currentTimeMillis();
 				int len = (int) ((double) i / (double) numTrials * genome.length());
 				FMIndex fm = new FMIndex(genome.substring(0, len),jump);
@@ -45,8 +45,8 @@ public class FMTestTime {
 		}
 
 		//Time the time to search for a string given original length
-		if(type.equals("FMSearch")) {
-			for(int i = 0; i < numTrials; i++) {
+		if(type.equals("search")) {
+			for(int i = 2; i <= numTrials; i++) {
 				
 				int len = (int) ((double) i / (double) numTrials * genome.length());
 				FMIndex fm = new FMIndex(genome.substring(0, len),jump);
@@ -59,9 +59,9 @@ public class FMTestTime {
 		}		
 		
 		//Time the time to search for a string given that string's length
-		if(type.equals("FMSubstringSearch")) {
+		if(type.equals("substring")) {
 			FMIndex fm = new FMIndex(genome,jump);
-			for(int i = 0; i < numTrials; i++) {
+			for(int i = 2; i <= numTrials; i++) {
 				
 				int len = (int) ((double) i / (double) numTrials * input.length());
 				final long startTime = System.currentTimeMillis();
@@ -72,7 +72,7 @@ public class FMTestTime {
 			}
 		}		
 		//Time the time to search given checkpoint jump size
-		if(type.equals("FMJumpSearch")) {
+		if(type.equals("jump")) {
 			FMIndex fm = new FMIndex(genome,jump);
 			for(int i = 1; i <= numTrials; i++) {
 				
