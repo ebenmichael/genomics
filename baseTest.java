@@ -9,7 +9,7 @@ public class baseTest {
 		System.out.println(k1);
 		System.out.println(k2);
 		System.out.println(k2.compareTo(k1) > 0);*/
-		FMIndex fm = new FMIndex("CTAAAGGGGGAC");
+		FMIndex fm = new FMIndex("CTAAAGGGAATAGCTACGATCGATCGTACGTACGTACGATCGTGATGCTCGTAGCTAGCTACGTGCGCGCGCGCGTAGCGATCGATCGATCGATCGTAGCTAGCTAGCTGCGTATTATATATGCTGCTACGTACGTACGTACGTACGTACGTACGTCGATCGATCGTACGACGACTGTCGATCGCTAGTCGCATGCAGCTGACTGTTTATATATTATATATATGCGCGCGGCTATTACTCTCTCTAAGAGAGGAC",100);
 		/*
 		Base[] last = fm.last;
 		for(Base b : last) {
@@ -28,7 +28,7 @@ public class baseTest {
 			}
 			System.out.println();
 		}*/
-		System.out.println(fm.contains("CT"));
+		System.out.println(fm.contains("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
 	
 	}
 	

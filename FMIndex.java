@@ -16,9 +16,14 @@ public class FMIndex {
         //Kmer kSeq = new Kmer(sequence + "$");
         //do the burrows-wheeler transform
         last = this.bw(sequence + "$");
-        this.ckptJump = jump;
+        ckptJump = jump;
         //get ckptArray and countArray
         this.getCkptArray();
+    }
+    
+    public void setJump(int jump) {
+    	ckptJump = jump;
+    	this.getCkptArray();
     }
     
     private Base[] bw(String input) {
@@ -149,6 +154,7 @@ public class FMIndex {
         int startIndex = getFIndex(lastBase, 0);
         int endIndex = getFIndex(lastBase, countArray[baseConversion(lastBase)] - 1);
         
+        
         String base2 = mer.baseAt(kmerLength - 2).toString();
         
         int startRank = getLRank(startIndex-1, base2);
@@ -159,6 +165,7 @@ public class FMIndex {
         
         //immediately check if the kmer is not present
         if(endRank < 0) {
+            System.out.println("endRank was 0");
             return(false);
         }
         
