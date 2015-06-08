@@ -13,31 +13,27 @@ public class FMIndex {
          * Also gets the checkpoint array
          */
         //add start symbol $ and convert sequence into a kmer
-        Kmer kSeq = new Kmer(sequence + "$");
+        //Kmer kSeq = new Kmer(sequence + "$");
         //do the burrows-wheeler transform
-        last = this.bw(kSeq);
+        last = this.bw(sequence + "$");
         //get ckptArray and countArray
         this.getCkptArray();
     }
     
-    private Base[] bw(Kmer input) {
+    private Base[] bw(String input) {
         /**Do the burrows-wheeler transform using the burrows-wheeler matrix**/
         //rotate matrices and sort rows
-        Kmer max = input;
-        Kmer prevKmer = input;
         
-        //bwm matrix
-        Kmer[] bwm = new Kmer[input.length()];
+        //bwm matrix with StringCycles
+        StringCycle[] bwm = new StringCycle[input.length()];
         
         for(int i = 0; i < input.length(); i++) {
-            //rotate Kmer
-            
-            Kmer currKmer = this.rotateKmer(prevKmer);
-            
-            bwm[i] = currKmer;
-            
-            prevKmer = currKmer;
+            //rotate strings with StringCycle
+            bwm[i] = new StringCycle(i);
         }
+        
+        //add the input string as the class string for the String Cycles
+        bwm[0].setString(input);
         
         //sort rows
         
@@ -46,7 +42,7 @@ public class FMIndex {
         //get last column
         Base[] l = new Base[input.length()];
         for(int i = 0; i < input.length(); i++) {
-            l[i] = bwm[i].toBaseArray()[input.length() - 1];
+            l[i] = new Base(bwm[i].charAt(input.length() - 1));
         }
         
         return(l);

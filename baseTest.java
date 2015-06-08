@@ -9,7 +9,8 @@ public class baseTest {
 		System.out.println(k1);
 		System.out.println(k2);
 		System.out.println(k2.compareTo(k1) > 0);*/
-		FMIndex fm = new FMIndex("CTGTGATCGATAGCTAG");
+		FMIndex fm = new FMIndex("CTAAAGGGGGAC");
+		/*
 		Base[] last = fm.last;
 		for(Base b : last) {
 			System.out.println(b);
@@ -19,7 +20,7 @@ public class baseTest {
 		for(int i = 0; i < 4; i++){
 			System.out.println(count[i]);
 		}
-		/*
+		
 		int[][] ckptarr = fm.ckptArray;
 		for(int[] base : ckptarr) {
 			for(int rank : base) {
@@ -27,7 +28,7 @@ public class baseTest {
 			}
 			System.out.println();
 		}*/
-		System.out.println(fm.contains("TACGATCGATCGTACATTATATTATATTTAGCGACGCGCGCGCGGCGACTAGCTAG"));
+		System.out.println(fm.contains("CT"));
 	
 	}
 	

@@ -25,6 +25,16 @@ public class StringCycle implements Comparable<StringCycle>{
 	}
 	
 	/**
+	 * Get's the i'th element of the StringCycle
+	 * @param i
+	 * @return character at index i in StringCycle
+	 */
+	public char charAt(int i) {
+		int val = (index + i) % str.length();
+		return(str.charAt(val));
+	}
+	
+	/**
 	 * returns the start index
 	 */
 	public int getStartIndex() {
