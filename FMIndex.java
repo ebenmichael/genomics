@@ -132,6 +132,15 @@ public class FMIndex {
     
     public boolean contains(Kmer mer){
         int kmerLength = mer.length();
+        
+        if(kmerLength == 1){
+            int index = baseConversion( mer.toString());
+            if(countArray[index] > 0)
+                return true;
+            else
+                return false;
+        }
+            
         //find the last letter of the kmer
         String lastBase = mer.baseAt(kmerLength - 1).toString();
         
