@@ -8,10 +8,22 @@ public class FMIndex {
     int[][] ckptArray;
     Base[] last;
     
-    public FMIndex(String sequence, int jump){
+    public FMIndex(StringBuilder sequence, int jump){
         /**Constructor. Gets the Burrows-Wheeler transform for the FM Index.
          * Also gets the checkpoint array
          */
+        //add start symbol $ and convert sequence into a kmer
+        //Kmer kSeq = new Kmer(sequence + "$");
+        //do the burrows-wheeler transform
+        last = this.bw(sequence.append("$").toString());
+        ckptJump = jump;
+        //get ckptArray and countArray
+        this.getCkptArray();
+    }
+    /**
+     * Constructor for strings
+     */
+    public FMIndex(String sequence, int jump){
         //add start symbol $ and convert sequence into a kmer
         //Kmer kSeq = new Kmer(sequence + "$");
         //do the burrows-wheeler transform

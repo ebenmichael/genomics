@@ -116,7 +116,7 @@ BufferedReader br = new BufferedReader(new FileReader(file));
 		
 		//construct FM Index
 		
-		FMIndex fm1 = new FMIndex(genome[0].toString(),jump);
+		FMIndex fm1 = new FMIndex(genome[0],jump);
 		
 		//write to file
 		String outPath1 = args[2] + "_1";
@@ -135,7 +135,7 @@ BufferedReader br = new BufferedReader(new FileReader(file));
 			System.out.println(true);
 		}
 		
-		FMIndex fm2 = new FMIndex(genome[1].toString(),jump);
+		FMIndex fm2 = new FMIndex(genome[1],jump);
 		
 		//write to file
 		String outPath2 = args[2] + "_2";
