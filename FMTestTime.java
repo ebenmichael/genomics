@@ -7,7 +7,7 @@ public class FMTestTime {
 	
 	public static void main(String[] args) throws IOException{
 		
-		final long readStartTime = System.currentTimeMillis();
+		//final long readStartTime = System.currentTimeMillis();
 
 		String file = args[0];
 		BufferedReader br = new BufferedReader(new FileReader(file));
@@ -75,7 +75,7 @@ public class FMTestTime {
 		br.close();
 		//combine into two different stringbuilders
 		
-		System.out.println(genome[0].length());
+		//System.out.println(genome[0].length());
 		
 		StringBuilder[] parts = new StringBuilder[2];
 		parts[0] = genome[0];
@@ -97,8 +97,8 @@ public class FMTestTime {
 		
 		genome = parts;
 		//System.out.println(genome);
-		final long readEndTime = System.currentTimeMillis();
-		System.out.println((readEndTime - readStartTime) / 1000.0);
+		//final long readEndTime = System.currentTimeMillis();
+		//System.out.println((readEndTime - readStartTime) / 1000.0);
 		
 		int jump = Integer.parseInt(args[2]);
 		String input = args[3];
