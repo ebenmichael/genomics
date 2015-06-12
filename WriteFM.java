@@ -67,14 +67,20 @@ BufferedReader br = new BufferedReader(new FileReader(file));
 		while(temp != null) {
 			line = temp;
 			//if the line length is 60, include it
-			if(line.length() == 60) {
+			if(line.charAt(0) == '>') {
+				chrom++;
+				//if we've exceeded 24 chromosomes (includes X and Y) stop
+				if(chrom > 23) {
+					break;
+				}
+				System.out.println(line);
+				System.out.println(chrom);
+				genome[chrom] = new StringBuilder(genSizes[chrom]);
+			}
+			else {
 				//replace non-read bases
 				line = line.replace("N","");
 				genome[chrom].append(line);
-			}
-			else {
-				chrom++;
-				genome[chrom] = new StringBuilder(genSizes[chrom]);
 			}
 			temp =br.readLine();
 		}
