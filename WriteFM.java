@@ -16,7 +16,7 @@ public class WriteFM {
 		String file = args[0];
 BufferedReader br = new BufferedReader(new FileReader(file));
 		
-		int numLines = Integer.parseInt(args[1]);
+
 		
 		//sizes of chromosomes
 		int[] genSizes = new int[24];
@@ -113,38 +113,38 @@ BufferedReader br = new BufferedReader(new FileReader(file));
 		FMIndex fm1 = new FMIndex(genome[0].toString(),jump);
 		
 		//write to file
-		String outPath = args[2] + "_1";
-		FileOutputStream fout = new FileOutputStream(outPath);
-		ObjectOutputStream oos = new ObjectOutputStream(fout);
-		oos.writeObject(fm1);
-		oos.close();
+		String outPath1 = args[2] + "_1";
+		FileOutputStream fout1 = new FileOutputStream(outPath1);
+		ObjectOutputStream oos1 = new ObjectOutputStream(fout1);
+		oos1.writeObject(fm1);
+		oos1.close();
 		
 		//read the file written to
-		FileInputStream fin = new FileInputStream(outPath);
-		ObjectInputStream ois = new ObjectInputStream(fin);
-		FMIndex out = (FMIndex) ois.readObject();
-		ois.close();
+		FileInputStream fin1 = new FileInputStream(outPath1);
+		ObjectInputStream ois1 = new ObjectInputStream(fin1);
+		FMIndex out1 = (FMIndex) ois1.readObject();
+		ois1.close();
 		
-		if(fm1.equals(out)) {
+		if(fm1.equals(out1)) {
 			System.out.println(true);
 		}
 		
-		FMIndex fm2 = new FMIndex(genome[0].toString(),jump);
+		FMIndex fm2 = new FMIndex(genome[1].toString(),jump);
 		
 		//write to file
 		String outPath2 = args[2] + "_2";
-		FileOutputStream fout2 = new FileOutputStream(outPath);
-		ObjectOutputStream oos2 = new ObjectOutputStream(fout);
-		oos.writeObject(fm1);
-		oos.close();
+		FileOutputStream fout2 = new FileOutputStream(outPath2);
+		ObjectOutputStream oos2 = new ObjectOutputStream(fout2);
+		oos2.writeObject(fm2);
+		oos2.close();
 		
 		//read the file written to
-		FileInputStream fin = new FileInputStream(outPath);
-		ObjectInputStream ois = new ObjectInputStream(fin);
-		FMIndex out = (FMIndex) ois.readObject();
-		ois.close();
+		FileInputStream fin2 = new FileInputStream(outPath2);
+		ObjectInputStream ois2 = new ObjectInputStream(fin2);
+		FMIndex out2 = (FMIndex) ois2.readObject();
+		ois2.close();
 		
-		if(fm1.equals(out)) {
+		if(fm1.equals(out2)) {
 			System.out.println(true);
 		}
 		
