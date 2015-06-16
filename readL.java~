@@ -1,4 +1,3 @@
-import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,19 +14,15 @@ public class readL {
         counts.put('T', 0);
         
   String file = args[0];
-  BufferedReader br = new BufferedReader(new FileReader(file));
+  FileReader inputFile = new FileReader(args[0]);
   ArrayList<Base> bases = new ArrayList<Base>(1750000000);
-  
-  char current = (char)br.read();
-  counts.put(current, counts.get(current) + 1);
-  bases.add(new Base(Character.toString(current)));
-  
-  while(current != -1){
-   current = (char)br.read();
-   bases.add(new Base(Character.toString(current)));
-   counts.put(current, counts.get(current) + 1);
+ 
+  int current;
+  while((current = inputFile.read()) != -1){
+   char c = (char)current;
+   bases.add(new Base(Character.toString(c)));
+   counts.put(c, counts.get(c) + 1);
   }
-  br.close();
   
   int[] countArray = new int[4];
   countArray[0] = counts.get('A');
