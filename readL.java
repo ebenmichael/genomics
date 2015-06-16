@@ -76,8 +76,8 @@ public class readL {
   String outPath2 = args[3];
   FileOutputStream fout2 = new FileOutputStream(outPath2);
   ObjectOutputStream oos2 = new ObjectOutputStream(fout2);
-  oos1.writeObject(fm2);
-  oos1.close();
+  oos2.writeObject(fm2);
+  oos2.close();
  }
  
 }
