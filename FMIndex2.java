@@ -2,13 +2,13 @@ import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.LinkedList;
 
-public class FMIndex {
+public class FMIndex2 {
     int[] countArray;
     int ckptJump;
     int[][] ckptArray;
     Base[] last;
     
-    public FMIndex(StringBuilder sequence, int jump){
+    public FMIndex2(StringBuilder sequence, int jump){
         /**Constructor. Gets the Burrows-Wheeler transform for the FM Index.
          * Also gets the checkpoint array
          */
@@ -23,7 +23,7 @@ public class FMIndex {
     /**
      * Constructor for strings
      */
-    public FMIndex(String sequence, int jump){
+    public FMIndex2(String sequence, int jump){
         //add start symbol $ and convert sequence into a kmer
         //Kmer kSeq = new Kmer(sequence + "$");
         //do the burrows-wheeler transform
@@ -38,7 +38,7 @@ public class FMIndex {
      * @param counts
      * @param jump
      */
-    public FMIndex(Base[] bwt, int[] counts, int jump) {
+    public FMIndex2(Base[] bwt, int[] counts, int jump) {
     	ckptJump = jump;
     	last = bwt;
     	countArray = counts;
@@ -248,16 +248,16 @@ public class FMIndex {
      */
     private int getFIndex(String letter, int rank){
         if(letter.equals("A")){
-            return (1+rank);
+            return (rank);
         }
         else if(letter.equals("C")){
-            return (1 + countArray[0] + rank);
+            return (countArray[0] + rank);
         }
         else if(letter.equals("G")){
-            return (1 + countArray[0] + countArray[1] + rank);
+            return (countArray[0] + countArray[1] + rank);
         }
         else if (letter.equals("T")){
-            return (1 + countArray[0] + countArray[1] + countArray[2] + rank);
+            return (countArray[0] + countArray[1] + countArray[2] + rank);
         }
         else{
             System.out.println("Error in getFIndex");
