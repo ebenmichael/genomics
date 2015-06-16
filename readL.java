@@ -39,6 +39,8 @@ public class readL {
   int current1;
   while((current1 = inputFile1.read()) != -1){ 
    char c1 = (char)current1;
+   if(c1 == '\n')
+     continue;
    try{
     bases1.add(new Base(Character.toString(c1)));
     counts1.put(c1, counts1.get(c1) + 1);
@@ -51,6 +53,8 @@ public class readL {
   int current2;
   while((current2 = inputFile2.read()) != -1){
    char c2 = (char)current2;
+   if(c1 == '\n')
+     continue;
    bases2.add(new Base(Character.toString(c2)));
    counts2.put(c2, counts2.get(c2) + 1);
   }
