@@ -37,15 +37,10 @@ public class readL {
   ArrayList<Base> bases2 = new ArrayList<Base>(1750000000);
  
   int current1;
-  while((current1 = inputFile1.read()) != -1){ 
+  while((current1 = inputFile1.read()) != -1){
    char c1 = (char)current1;
-   try{
-    bases1.add(new Base(Character.toString(c1)));
-    counts1.put(c1, counts1.get(c1) + 1);
-   }
-   catch(IllegalArgumentException e){
-     System.out.println(c1);
-   }
+   bases1.add(new Base(Character.toString(c1)));
+   counts1.put(c1, counts1.get(c1) + 1);
   }
   
   int current2;
