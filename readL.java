@@ -65,14 +65,14 @@ public class readL {
   Base[] baseArray1 = (Base[]) bases1.toArray();
   Base[] baseArray2 = (Base[]) bases2.toArray();
   
-  FMIndex fm1 = new FMIndex2(baseArray1, countArray1, args[4]);
+  FMIndex2 fm1 = new FMIndex2(baseArray1, countArray1, args[4]);
   String outPath1 = args[2];
   FileOutputStream fout1 = new FileOutputStream(outPath1);
   ObjectOutputStream oos1 = new ObjectOutputStream(fout1);
   oos1.writeObject(fm1);
   oos1.close();
   
-  FMIndex fm2 = new FMIndex2(baseArray2, countArray2, args[4]);
+  FMIndex2 fm2 = new FMIndex2(baseArray2, countArray2, args[4]);
   String outPath2 = args[3];
   FileOutputStream fout2 = new FileOutputStream(outPath2);
   ObjectOutputStream oos2 = new ObjectOutputStream(fout2);
