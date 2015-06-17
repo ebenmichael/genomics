@@ -32,7 +32,7 @@ public class readL {
   
   ArrayList<Base> bases1 = new ArrayList<Base>(1750000000);
   ArrayList<Base> bases2 = new ArrayList<Base>(1750000000);
- 
+  System.out.println("Reading Chromosomes 1-9");
   int current1;
   int count = 0;
   while((current1 = reader1.read()) != -1){ 
@@ -51,7 +51,7 @@ public class readL {
      System.out.println(c1);
    }
   }
-  
+  System.out.println("Reading Chromosomes 10-");
   int current2;
   while((current2 = reader2.read()) != -1){
    char c2 = (char)current2;
@@ -60,7 +60,7 @@ public class readL {
    bases2.add(new Base(Character.toString(c2)));
    counts2.put(c2, counts2.get(c2) + 1);
   }
-  
+  System.out.println("Converting counts Hashtable to int[]");
   int[] countArray1 = new int[4];
   countArray1[0] = counts1.get('A');
   countArray1[1] = counts1.get('C');
@@ -72,18 +72,21 @@ public class readL {
   countArray2[1] = counts2.get('C');
   countArray2[2] = counts2.get('G');
   countArray2[3] = counts2.get('T');
-  
+  System.out.println("Casting ArrayList<Base>s to Base[]");
   Base[] baseArray1 = (Base[]) bases1.toArray();
   Base[] baseArray2 = (Base[]) bases2.toArray();
-  
+  System.out.println("Creating FMIndex 1 for Chromosomes 1-9");
   FMIndex2 fm1 = new FMIndex2(baseArray1, countArray1, Integer.parseInt(args[4]));
+  System.out.println("Writing FMIndex 1 to disk");
   String outPath1 = args[2];
   FileOutputStream fout1 = new FileOutputStream(outPath1);
   ObjectOutputStream oos1 = new ObjectOutputStream(fout1);
   oos1.writeObject(fm1);
   oos1.close();
   
+  System.out.println("Creating FMIndex 2 for Chromosomes 10-");
   FMIndex2 fm2 = new FMIndex2(baseArray2, countArray2, Integer.parseInt(args[4]));
+  System.out.println("Writing FMIndex 2 to disk");
   String outPath2 = args[3];
   FileOutputStream fout2 = new FileOutputStream(outPath2);
   ObjectOutputStream oos2 = new ObjectOutputStream(fout2);
