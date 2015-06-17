@@ -33,7 +33,7 @@ public class readL {
   ArrayList<Base> bases1 = new ArrayList<Base>();
   ArrayList<Base> bases2 = new ArrayList<Base>();
   bases1.ensureCapacity(1750000000);
-  bases1.ensureCapacity(1750000000);
+  bases2.ensureCapacity(1750000000);
   
   System.out.println("Reading Chromosomes 1-9");
  
