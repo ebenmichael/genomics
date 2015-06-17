@@ -51,13 +51,10 @@ public class readL {
      System.out.println(c1);
    }
   }
-<<<<<<< HEAD
+  
   System.out.println("Reading Chromosomes 10-");
-=======
   
   reader1.close();
-  
->>>>>>> 6092b3ea2a7afbe75ebbaca86e85c8bb3758fd99
   int current2;
   while((current2 = reader2.read()) != -1){
    char c2 = (char)current2;
@@ -66,13 +63,11 @@ public class readL {
    bases2.add(new Base(Character.toString(c2)));
    counts2.put(c2, counts2.get(c2) + 1);
   }
-<<<<<<< HEAD
+  
   System.out.println("Converting counts Hashtable to int[]");
-=======
   
   reader2.close();
-  
->>>>>>> 6092b3ea2a7afbe75ebbaca86e85c8bb3758fd99
+
   int[] countArray1 = new int[4];
   countArray1[0] = counts1.get('A');
   countArray1[1] = counts1.get('C');

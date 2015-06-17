@@ -33,35 +33,45 @@ public class readL {
   ArrayList<Base> bases1 = new ArrayList<Base>(1750000000);
   ArrayList<Base> bases2 = new ArrayList<Base>(1750000000);
   System.out.println("Reading Chromosomes 1-9");
-  int current1;
+ 
+  String current1;
   int count = 0;
-  while((current1 = reader1.read()) != -1){ 
-    if(count % 100000 == 0){
-      System.out.println(count + " characters read");
+  while((current1 = reader1.readLine()) != null){ 
+    if(count % 10000 == 0){
+      System.out.println(count + " lines read");
       count++;
     }
-   char c1 = (char)current1;
-   if(c1 == '\n')
-     continue;
    try{
-    bases1.add(new Base(Character.toString(c1)));
-    counts1.put(c1, counts1.get(c1) + 1);
+     for(int i = 0; i < current1.length(); i++){
+       char c1 = current1.charAt(i);
+       bases1.add(new Base(c1));
+       counts1.put(c1, counts1.get(c1) + 1);
+     }
    }
    catch(IllegalArgumentException e){
-     System.out.println(c1);
+     System.out.println(current1);
    }
   }
   
   System.out.println("Reading Chromosomes 10-");
   
   reader1.close();
-  int current2;
-  while((current2 = reader2.read()) != -1){
-   char c2 = (char)current2;
-   if(c2 == '\n')
-     continue;
-   bases2.add(new Base(Character.toString(c2)));
-   counts2.put(c2, counts2.get(c2) + 1);
+  String current2;
+  while((current2 = reader2.readLine()) != null){ 
+    if(count % 1000 == 0){
+      System.out.println(count + " lines read");
+      count++;
+    }
+   try{
+     for(int i = 0; i < current2.length(); i++){
+       char c2 = current2.charAt(i);
+       bases2.add(new Base(c2));
+       counts2.put(c2, counts2.get(c2) + 1);
+     }
+   }
+   catch(IllegalArgumentException e){
+     System.out.println(current2);
+   }
   }
   
   System.out.println("Converting counts Hashtable to int[]");
