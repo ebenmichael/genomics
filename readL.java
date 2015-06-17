@@ -37,7 +37,7 @@ public class readL {
   String current1;
   int count = 0;
   while((current1 = reader1.readLine()) != null){ 
-    System.out.println(current1);
+    System.out.println(count);
     if(count % 10000 == 0){
       System.out.println(count + " lines read");
       count++;
