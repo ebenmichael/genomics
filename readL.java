@@ -52,6 +52,8 @@ public class readL {
    }
   }
   
+  reader1.close();
+  
   int current2;
   while((current2 = reader2.read()) != -1){
    char c2 = (char)current2;
@@ -60,6 +62,8 @@ public class readL {
    bases2.add(new Base(Character.toString(c2)));
    counts2.put(c2, counts2.get(c2) + 1);
   }
+  
+  reader2.close();
   
   int[] countArray1 = new int[4];
   countArray1[0] = counts1.get('A');
