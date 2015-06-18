@@ -26,20 +26,38 @@ public class readL {
   BufferedReader reader1 = new BufferedReader(new FileReader(args[0]));
   
   
-  Base[] bases1 = new Base[1680373120];
- 
+  Base[] bases1 = new Base[1680373125];
+  
+  //char[] bases1 = new char[1680373124];
+  //base classes for each type of base
+  Base a = new Base('A');
+  Base c = new Base('C');
+  Base g = new Base('G');
+  Base t = new Base('T');
   
   System.out.println("Reading Chromosomes 1-9");
  
   String current1;
   int count = 0;
   while((current1 = reader1.readLine()) != null){
-	if(count % 1000000 == 0)  
+	if(count % 100000000 == 0)  
      System.out.println(count);
     try{
       for(int i = 0; i < current1.length(); i++){
         char c1 = current1.charAt(i);
-        bases1[count] = new Base(c1);
+        //bases1[count] = c1;
+        if(c1 == 'A') {
+        	bases1[count] = a;
+        }
+        else if(c1 == 'C') {
+        	bases1[count] = c;
+        }
+        else if(c1 == 'G') {
+        	bases1[count] = g;
+        }
+        else if(c1 == 'T') {
+        	bases1[count] = t;
+        }
         counts1.put(c1, counts1.get(c1) + 1);
         count++;
       }
@@ -48,6 +66,7 @@ public class readL {
      System.out.println(current1);
    }
   }
+  System.out.println(count);
   reader1.close();
   
   System.out.println("Converting counts 1 Hashtable to int[]");
@@ -57,7 +76,7 @@ public class readL {
   countArray1[2] = counts1.get('G');
   countArray1[3] = counts1.get('T');
   
-  
+  /*
   System.out.println("Creating FMIndex 1 for Chromosomes 1-9");
   FMIndex2 fm1 = new FMIndex2(bases1, countArray1, Integer.parseInt(args[4]));
   System.out.println("Writing FMIndex 1 to disk");
@@ -69,7 +88,7 @@ public class readL {
   
   //change what bases and fm1 are pointing to to have java do garbage collection
   bases1 = new Base[0];
-  
+  */
   
   System.out.println("Reading Chromosomes 10-end");
   
@@ -79,19 +98,31 @@ public class readL {
   counts2.put('G', 0);
   counts2.put('T', 0);
   
-  Base[] bases2 = new Base[1421431552];
+  Base[] bases2 = new Base[1421431557];
   BufferedReader reader2 = new BufferedReader(new FileReader(args[1]));
   
   String current2;
   int count2 = 0;
   while((current2 = reader2.readLine()) != null){ 
-   if(count2 % 1000000 == 0)
+   if(count2 % 100000000 == 0)
     System.out.println(count2);
    try{
       for(int i = 0; i < current2.length(); i++){
         char c2 = current2.charAt(i);
-        bases1[count2] = new Base(c2);
-        counts1.put(c2, counts1.get(c2) + 1);
+        //bases2[count2] = new Base(c2);
+        if(c2 == 'A') {
+        	bases2[count] = a;
+        }
+        else if(c2 == 'C') {
+        	bases1[count] = c;
+        }
+        else if(c2 == 'G') {
+        	bases1[count] = g;
+        }
+        else if(c2 == 'T') {
+        	bases1[count] = t;
+        }
+        counts2.put(c2, counts2.get(c2) + 1);
         count2++;
       }
    }
@@ -99,6 +130,7 @@ public class readL {
      System.out.println(current2);
    }
   }
+  System.out.println(count2);
   reader2.close();
   System.out.println("Converting counts 2 Hashtable to int[]");
   

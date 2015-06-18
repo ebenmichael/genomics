@@ -113,16 +113,52 @@ public class Base implements Comparable<Base>{
     }
     
     public String complement(){
-        if(toString().equals("A"))
+        if(this.toString().equals("A"))
             return "T";
-        else if(toString().equals("T"))
+        else if(this.toString().equals("T"))
             return "A";
-        else if(toString().equals("C"))
+        else if(this.toString().equals("C"))
             return "G";
-        else if(toString().equals("G"))
+        else if(this.toString().equals("G"))
             return "C";
         else
             return "ERROR";
+    }
+    
+    public void setBase(char c) {
+    	
+    	String nucleotide = String.valueOf(c);
+    	if(nucleotide.equals("$")) {
+            base = null;
+        }
+        else {
+            //declare the BitSet array
+            base = new BitSet(2);
+            //go through each case for the nucleotide and instantiate the array
+            //A = 00
+            //C = 01
+            //G = 10
+            //T = 11
+            if(nucleotide.equals("A")) {
+                
+            }
+            else if(nucleotide.equals("C")) {
+                base.set(0);
+            }
+            else if(nucleotide.equals("G")) {
+                base.set(1);
+            }
+            else if(nucleotide.equals("T")) {
+                base.set(0);
+                base.set(1);
+            }
+            else {
+                IllegalArgumentException e;
+                e = new IllegalArgumentException("Only A,C,G,T can be entered");
+                throw e;
+                
+            }
+        }
     }
     
 }
