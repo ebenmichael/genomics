@@ -21,12 +21,10 @@ public class readL {
         counts1.put('G', 0);
         counts1.put('T', 0);
         
-
-        
   BufferedReader reader1 = new BufferedReader(new FileReader(args[0]));
   
-  
-  Base[] bases1 = new Base[1680373125];
+  ArrayList<Base> bases1 = new ArrayList<Base>(1680373127);
+  //Base[] bases1 = new Base[1680373125];
   
   //char[] bases1 = new char[1680373124];
   //base classes for each type of base
@@ -40,23 +38,23 @@ public class readL {
   String current1;
   int count = 0;
   while((current1 = reader1.readLine()) != null){
-	if(count % 100000000 == 0)  
+ if(count % 100000000 == 0)  
      System.out.println(count);
     try{
       for(int i = 0; i < current1.length(); i++){
         char c1 = current1.charAt(i);
         //bases1[count] = c1;
         if(c1 == 'A') {
-        	bases1[count] = a;
+         bases1.add(a);
         }
         else if(c1 == 'C') {
-        	bases1[count] = c;
+         bases1.add(c);;
         }
         else if(c1 == 'G') {
-        	bases1[count] = g;
+         bases1.add(g);
         }
         else if(c1 == 'T') {
-        	bases1[count] = t;
+         bases1.add(t);
         }
         counts1.put(c1, counts1.get(c1) + 1);
         count++;
@@ -76,9 +74,11 @@ public class readL {
   countArray1[2] = counts1.get('G');
   countArray1[3] = counts1.get('T');
   
-  /*
+  System.out.println("Converting ArrayList into Array");
+  Base[] basesArray1 = (Base[])bases1.toArray();
+  
   System.out.println("Creating FMIndex 1 for Chromosomes 1-9");
-  FMIndex2 fm1 = new FMIndex2(bases1, countArray1, Integer.parseInt(args[4]));
+  FMIndex2 fm1 = new FMIndex2(basesArray1, countArray1, Integer.parseInt(args[4]));
   System.out.println("Writing FMIndex 1 to disk");
   String outPath1 = args[2];
   FileOutputStream fout1 = new FileOutputStream(outPath1);
@@ -87,8 +87,8 @@ public class readL {
   oos1.close();
   
   //change what bases and fm1 are pointing to to have java do garbage collection
-  bases1 = new Base[0];
-  */
+  bases1 = new ArrayList<Base>();
+  
   
   System.out.println("Reading Chromosomes 10-end");
   
@@ -98,7 +98,9 @@ public class readL {
   counts2.put('G', 0);
   counts2.put('T', 0);
   
-  Base[] bases2 = new Base[1421431557];
+  ArrayList<Base> bases2 = new ArrayList<Base>(1421431559);
+  //Base[] bases2 = new Base[1421431557];
+  
   BufferedReader reader2 = new BufferedReader(new FileReader(args[1]));
   
   String current2;
@@ -111,16 +113,16 @@ public class readL {
         char c2 = current2.charAt(i);
         //bases2[count2] = new Base(c2);
         if(c2 == 'A') {
-        	bases2[count] = a;
+         bases2.add(a);
         }
         else if(c2 == 'C') {
-        	bases1[count] = c;
+         bases2.add(c);
         }
         else if(c2 == 'G') {
-        	bases1[count] = g;
+         bases2.add(g);
         }
         else if(c2 == 'T') {
-        	bases1[count] = t;
+         bases2.add(t);
         }
         counts2.put(c2, counts2.get(c2) + 1);
         count2++;
@@ -140,8 +142,11 @@ public class readL {
   countArray2[2] = counts2.get('G');
   countArray2[3] = counts2.get('T');
   
+  System.out.println("Converting ArrayList into Array");
+  Base[] basesArray2 = (Base[])bases2.toArray();
+   
   System.out.println("Creating FMIndex 2 for Chromosomes 10-");
-  FMIndex2 fm2 = new FMIndex2(bases2, countArray2, Integer.parseInt(args[4]));
+  FMIndex2 fm2 = new FMIndex2(basesArray2, countArray2, Integer.parseInt(args[4]));
   System.out.println("Writing FMIndex 2 to disk");
   String outPath2 = args[3];
   FileOutputStream fout2 = new FileOutputStream(outPath2);
