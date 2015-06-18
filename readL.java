@@ -38,7 +38,7 @@ public class readL {
   String current1;
   int count = 0;
   while((current1 = reader1.readLine()) != null){ 
-    if(count % 100000000 == 0){
+    if(count % 10000000 == 0){
       System.out.println(count + " bases read");
     }
     try{
@@ -60,7 +60,7 @@ public class readL {
   String current2;
   int count2 = 0;
   while((current2 = reader2.readLine()) != null){ 
-    if(count % 100000000 == 0){
+    if(count % 10000000 == 0){
       System.out.println(count + " bases read");
     }
    try{
