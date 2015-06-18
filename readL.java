@@ -21,24 +21,21 @@ public class readL {
         counts1.put('G', 0);
         counts1.put('T', 0);
         
- Hashtable<Character,Integer> counts2 = new Hashtable<Character,Integer>(4);
-        counts2.put('A', 0);
-        counts2.put('C', 0);
-        counts2.put('G', 0);
-        counts2.put('T', 0);
+
         
   BufferedReader reader1 = new BufferedReader(new FileReader(args[0]));
-  BufferedReader reader2 = new BufferedReader(new FileReader(args[1]));
+  
   
   Base[] bases1 = new Base[1680373120];
-  Base[] bases2 = new Base[1421431552];
+ 
   
   System.out.println("Reading Chromosomes 1-9");
  
   String current1;
   int count = 0;
-  while((current1 = reader1.readLine()) != null){ 
-    System.out.println(count);
+  while((current1 = reader1.readLine()) != null){
+	if(count % 1000000 == 0)  
+     System.out.println(count);
     try{
       for(int i = 0; i < current1.length(); i++){
         char c1 = current1.charAt(i);
@@ -51,14 +48,45 @@ public class readL {
      System.out.println(current1);
    }
   }
-
+  reader1.close();
+  
+  System.out.println("Converting counts 1 Hashtable to int[]");
+  int[] countArray1 = new int[4];
+  countArray1[0] = counts1.get('A');
+  countArray1[1] = counts1.get('C');
+  countArray1[2] = counts1.get('G');
+  countArray1[3] = counts1.get('T');
+  
+  
+  System.out.println("Creating FMIndex 1 for Chromosomes 1-9");
+  FMIndex2 fm1 = new FMIndex2(bases1, countArray1, Integer.parseInt(args[4]));
+  System.out.println("Writing FMIndex 1 to disk");
+  String outPath1 = args[2];
+  FileOutputStream fout1 = new FileOutputStream(outPath1);
+  ObjectOutputStream oos1 = new ObjectOutputStream(fout1);
+  oos1.writeObject(fm1);
+  oos1.close();
+  
+  //change what bases and fm1 are pointing to to have java do garbage collection
+  bases1 = new Base[0];
+  
+  
   System.out.println("Reading Chromosomes 10-end");
   
-  reader1.close();
+  Hashtable<Character,Integer> counts2 = new Hashtable<Character,Integer>(4);
+  counts2.put('A', 0);
+  counts2.put('C', 0);
+  counts2.put('G', 0);
+  counts2.put('T', 0);
+  
+  Base[] bases2 = new Base[1421431552];
+  BufferedReader reader2 = new BufferedReader(new FileReader(args[1]));
+  
   String current2;
   int count2 = 0;
   while((current2 = reader2.readLine()) != null){ 
-   System.out.println(count2);
+   if(count2 % 1000000 == 0)
+    System.out.println(count2);
    try{
       for(int i = 0; i < current2.length(); i++){
         char c2 = current2.charAt(i);
@@ -71,31 +99,14 @@ public class readL {
      System.out.println(current2);
    }
   }
-  
-  System.out.println("Converting counts Hashtable to int[]");
-  
   reader2.close();
-
-  int[] countArray1 = new int[4];
-  countArray1[0] = counts1.get('A');
-  countArray1[1] = counts1.get('C');
-  countArray1[2] = counts1.get('G');
-  countArray1[3] = counts1.get('T');
+  System.out.println("Converting counts 2 Hashtable to int[]");
   
   int[] countArray2 = new int[4];
   countArray2[0] = counts2.get('A');
   countArray2[1] = counts2.get('C');
   countArray2[2] = counts2.get('G');
   countArray2[3] = counts2.get('T');
-  
-  System.out.println("Creating FMIndex 1 for Chromosomes 1-9");
-  FMIndex2 fm1 = new FMIndex2(bases1, countArray1, Integer.parseInt(args[4]));
-  System.out.println("Writing FMIndex 1 to disk");
-  String outPath1 = args[2];
-  FileOutputStream fout1 = new FileOutputStream(outPath1);
-  ObjectOutputStream oos1 = new ObjectOutputStream(fout1);
-  oos1.writeObject(fm1);
-  oos1.close();
   
   System.out.println("Creating FMIndex 2 for Chromosomes 10-");
   FMIndex2 fm2 = new FMIndex2(bases2, countArray2, Integer.parseInt(args[4]));
