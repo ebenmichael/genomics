@@ -93,7 +93,7 @@ public class readL {
   countArray2[3] = counts2.get('T');
   
   System.out.println("Creating FMIndex 1 for Chromosomes 1-9");
-  FMIndex2 fm1 = new FMIndex2(baseArray1, countArray1, Integer.parseInt(args[4]));
+  FMIndex2 fm1 = new FMIndex2(bases1, countArray1, Integer.parseInt(args[4]));
   System.out.println("Writing FMIndex 1 to disk");
   String outPath1 = args[2];
   FileOutputStream fout1 = new FileOutputStream(outPath1);
@@ -102,7 +102,7 @@ public class readL {
   oos1.close();
   
   System.out.println("Creating FMIndex 2 for Chromosomes 10-");
-  FMIndex2 fm2 = new FMIndex2(baseArray2, countArray2, Integer.parseInt(args[4]));
+  FMIndex2 fm2 = new FMIndex2(bases2, countArray2, Integer.parseInt(args[4]));
   System.out.println("Writing FMIndex 2 to disk");
   String outPath2 = args[3];
   FileOutputStream fout2 = new FileOutputStream(outPath2);
