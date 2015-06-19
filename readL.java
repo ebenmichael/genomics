@@ -75,7 +75,7 @@ public class readL {
   countArray1[3] = counts1.get('T');
   
   System.out.println("Converting ArrayList into Array");
-  Base[] basesArray1 = (Base[])bases1.toArray();
+  Base[] basesArray1 = bases1.toArray(new Base[bases1.size()]);
   
   System.out.println("Creating FMIndex 1 for Chromosomes 1-9");
   FMIndex2 fm1 = new FMIndex2(basesArray1, countArray1, Integer.parseInt(args[4]));
@@ -143,7 +143,7 @@ public class readL {
   countArray2[3] = counts2.get('T');
   
   System.out.println("Converting ArrayList into Array");
-  Base[] basesArray2 = (Base[])bases2.toArray();
+  Base[] basesArray2 = bases2.toArray(new Base[bases2.size()]);
    
   System.out.println("Creating FMIndex 2 for Chromosomes 10-");
   FMIndex2 fm2 = new FMIndex2(basesArray2, countArray2, Integer.parseInt(args[4]));

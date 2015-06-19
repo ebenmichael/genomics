@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.BitSet;
-public class Base implements Comparable<Base>{
+public class Base implements Comparable<Base>, Serializable{
     
-    private BitSet base;
+    public BitSet base;
     
     public Base(String nucleotide) {
         /**Constructor for string input**/

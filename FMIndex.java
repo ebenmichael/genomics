@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.LinkedList;
 
-public class FMIndex {
+public class FMIndex implements Serializable{
     int[] countArray;
     int ckptJump;
     int[][] ckptArray;

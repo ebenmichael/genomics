@@ -1,8 +1,11 @@
+import java.io.Serializable;
 
-public class Kmer implements Comparable<Kmer>{
+
+public class Kmer implements Comparable<Kmer>, Serializable{
     
     Base[] kmer;
     int size;
+    int[] quality;
     
     public Kmer(String input) {
         /**Constructor**/
@@ -17,6 +20,26 @@ public class Kmer implements Comparable<Kmer>{
             }
             
         }
+    }
+    
+    /**
+     * Constructor with array of ints corresponding to quality
+     * @param input, quality
+     */
+    public Kmer(String input, int[] q) {
+        /**Constructor**/
+        //split the input into a char array and get a Base array
+        char[] letters = input.toCharArray();
+        size = input.length();
+        //initialize kmer
+        kmer = new Base[size];
+        for(int i = 0; i < size; i++){
+            if(letters[i] != ' ') {
+                kmer[i] = new Base(letters[i]);
+            }
+            
+        }
+        quality = q;
     }
     
     public Kmer(Kmer k) {
