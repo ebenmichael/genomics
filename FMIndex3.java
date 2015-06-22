@@ -9,7 +9,7 @@ public class FMIndex3 implements Serializable{
     int[][] ckptArray;
     Base[] last;
     
-    public FMIndex2(StringBuilder sequence, int jump){
+    public FMIndex3(StringBuilder sequence, int jump){
         /**Constructor. Gets the Burrows-Wheeler transform for the FM Index.
          * Also gets the checkpoint array
          */
@@ -24,7 +24,7 @@ public class FMIndex3 implements Serializable{
     /**
      * Constructor for strings
      */
-    public FMIndex2(String sequence, int jump){
+    public FMIndex3(String sequence, int jump){
         //add start symbol $ and convert sequence into a kmer
         //Kmer kSeq = new Kmer(sequence + "$");
         //do the burrows-wheeler transform
@@ -39,7 +39,7 @@ public class FMIndex3 implements Serializable{
      * @param counts
      * @param jump
      */
-    public FMIndex2(Base[] bwt, int[] counts, int jump) {
+    public FMIndex3(Base[] bwt, int[] counts, int jump) {
      ckptJump = jump;
      last = bwt;
      countArray = counts;
