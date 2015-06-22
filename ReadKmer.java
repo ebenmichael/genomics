@@ -19,17 +19,22 @@ public class ReadKmer {
 	 */
 	public static void main(String[] args) throws Exception {
 		//get kSize
-		int kSize = Integer.parseInt(args[2]);
+		int kSize = Integer.parseInt(args[3]);
 		//get fmindices
 		FMIndex2[] arr = readL(args[0],args[1],Integer.parseInt(args[2]));
 		//index through file names in command line arguments 
-		ArrayList<Integer> quals = new ArrayList<Integer>(2000000);
-		for(int i = 3; i < args.length; i++) {
-			quals.addAll(readFile(args[i],kSize,arr[2],arr[1]));
+		ArrayList<ArrayList<Double>> quals = new ArrayList<ArrayList<Double>>(200);
+		for(int i = 4; i < args.length; i++) {
+			quals.add(readFile(args[i],kSize,arr[1],arr[0]));
 		}
 		//print out all of the avgQualities
-		for(int q : quals){
-			System.out.println(q);
+		//prints out as:
+		//              AvgQual 1, ... AvgQual n, numKmer \n
+		for(ArrayList<Double> qList : quals){
+			for(double q : qList) {
+				System.out.print(q + ", ");
+			}
+			System.out.println();
 		}
 	}
 	/**
@@ -38,7 +43,7 @@ public class ReadKmer {
 	 * @param kSize
 	 * @throws IOException
 	 */
-	public static ArrayList<Integer> readFile(String fName, int kSize,
+	public static ArrayList<Double> readFile(String fName, int kSize,
 							FMIndex2 fm1, FMIndex2 fm2) throws IOException{
 		//get gzip input stream
 		GZIPInputStream gzip = new GZIPInputStream(new FileInputStream(fName));
@@ -58,7 +63,7 @@ public class ReadKmer {
 		//declare sum int
 		int sum;
 		//declare ArrayList which holds the average quality scores
-		ArrayList<Integer> avgQuals = new ArrayList<Integer>(1000000);
+		ArrayList<Double> avgQuals = new ArrayList<Double>(1000000);
 		//String to hold intermediate lines
 		String interLine;
 		//int numLine = 0;
@@ -93,7 +98,7 @@ public class ReadKmer {
 					if(!(fm1.contains(k) || fm2.contains(k) || 
 							fm1.contains(k.reverseComplement()) || 
 							fm2.contains(k.reverseComplement()))) {
-						avgQuals.add(sum / kString.length());
+						avgQuals.add((double)sum / (double)kString.length());
 					}
 					numKmer++;
 					
@@ -110,8 +115,10 @@ public class ReadKmer {
 		}
 			
 		br.close();
+		//add the total number of kmers not in the reference
+		avgQuals.add((double)avgQuals.size());
 		//add the total count to the end of the array 
-		avgQuals.add(numKmer);
+		avgQuals.add((double)numKmer);
 		return(avgQuals);
 		
 	}
@@ -163,7 +170,7 @@ public class ReadKmer {
 	  int count = 0;
 	  while((current1 = reader1.readLine()) != null){
 	 if(count % 100000000 == 0)  
-	     System.out.println(count);
+	     //System.out.println(count);
 	    try{
 	      for(int i = 0; i < current1.length(); i++){
 	        char c1 = current1.charAt(i);
@@ -185,20 +192,20 @@ public class ReadKmer {
 	      }
 	   }
 	   catch(IllegalArgumentException e){
-	     System.out.println(current1);
+	     //System.out.println(current1);
 	   }
 	  }
-	  System.out.println(count);
+	  //System.out.println(count);
 	  reader1.close();
 	  
-	  System.out.println("Converting counts 1 Hashtable to int[]");
+	  //System.out.println("Converting counts 1 Hashtable to int[]");
 	  int[] countArray1 = new int[4];
 	  countArray1[0] = counts1.get('A');
 	  countArray1[1] = counts1.get('C');
 	  countArray1[2] = counts1.get('G');
 	  countArray1[3] = counts1.get('T');
 	  
-	  System.out.println("Converting ArrayList into Array");
+	  //System.out.println("Converting ArrayList into Array");
 	  Base[] basesArray1 = bases1.toArray(new Base[bases1.size()]);
 	  
 	  System.out.println("Creating FMIndex 1 for Chromosomes 1-9");
@@ -225,7 +232,7 @@ public class ReadKmer {
 	  int count2 = 0;
 	  while((current2 = reader2.readLine()) != null){ 
 	   if(count2 % 100000000 == 0)
-	    System.out.println(count2);
+	    //System.out.println(count2);
 	   try{
 	      for(int i = 0; i < current2.length(); i++){
 	        char c2 = current2.charAt(i);
@@ -247,11 +254,11 @@ public class ReadKmer {
 	      }
 	   }
 	   catch(IllegalArgumentException e){
-	     System.out.println(current2);
+	     //System.out.println(current2);
 	   }
 	  }
 	  reader2.close();
-	  System.out.println("Converting counts 2 Hashtable to int[]");
+	  //System.out.println("Converting counts 2 Hashtable to int[]");
 	  
 	  int[] countArray2 = new int[4];
 	  countArray2[0] = counts2.get('A');
@@ -259,7 +266,7 @@ public class ReadKmer {
 	  countArray2[2] = counts2.get('G');
 	  countArray2[3] = counts2.get('T');
 	  
-	  System.out.println("Converting ArrayList into Array");
+	  //System.out.println("Converting ArrayList into Array");
 	  Base[] basesArray2 = bases2.toArray(new Base[bases2.size()]);
 	   
 	  System.out.println("Creating FMIndex 2 for Chromosomes 10-");
