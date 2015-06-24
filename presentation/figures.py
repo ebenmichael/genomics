@@ -14,12 +14,11 @@ def plotVals(csvFile,xlab,ylab,title,fName = None,save = False, log = False):
     sns.set_context('poster',font_scale=1.5)
     sns.set_style("whitegrid",{"axes.facecolor":"#EEECE1","figure.facecolor":"#EEECE1"
                 ,"xtick.color":".2","ytick.color":".2",
-                "text.color":".1","axes.labelcolor":".1"})
-    plt.figure(figsize=(9, 12))      
+                "text.color":".1","axes.labelcolor":".1"})     
     plt.plot(x,y,color = '#00274c')
     plt.xlabel(xlab)
     plt.ylabel(ylab)
-    plt.title(title)
+    plt.title(title, y=1.06)
 
     
     if save:
