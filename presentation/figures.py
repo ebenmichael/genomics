@@ -35,15 +35,17 @@ sns.set_style("whitegrid",{"axes.facecolor":"#EEECE1","figure.facecolor":"#EEECE
             "text.color":".1","axes.labelcolor":".1"})
 fig = plt.figure()
 ax = fig.add_subplot(111)
-ax.plot(dat.iloc[:,0],dat.iloc[:,1],color = '#002d62',label = 'AC')
-ax.plot(dat.iloc[:,0],dat.iloc[:,2], color = '#9D0E00', label = 'CGG')
-ax.plot(dat.iloc[:,0],dat.iloc[:,3], color = '#ffcb05', label = 'TTAGGG')
+ax.plot(2*dat.iloc[:34,0],dat.iloc[:34,1],color = '#002d62',label = 'AC')
+ax.plot(3*dat.iloc[:20,0],dat.iloc[:20,2], color = '#9D0E00', label = 'CGG')
+ax.plot(6*dat.iloc[:20,0],dat.iloc[:20,3], color = '#ffcb05', label = 'TTAGGG')
 ax.set_yscale('log')
 leg = ax.legend(title = 'STR')
-plt.xlabel('Number of STR Repeats')
+plt.xlim([1,75])
+plt.xlabel('Length of STR Repeats')
 plt.ylabel('Number of Occurances in the Genome (log)')
 plt.title('Distribution of STR Repeats')
 plt.setp(leg.get_title(),fontsize=32)
+
 
 """
     
