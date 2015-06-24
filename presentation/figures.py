@@ -26,5 +26,21 @@ def plotVals(csvFile,xlab,ylab,title,fName = None,save = False):
                 
     
 
-    
+
+"""
+sns.set_context('poster',font_scale=1.5)
+sns.set_style("whitegrid",{"axes.facecolor":"#EEECE1","figure.facecolor":"#EEECE1"
+            ,"xtick.color":".2","ytick.color":".2",
+            "text.color":".1","axes.labelcolor":".1"})
+fig = plt.figure()
+ax = fig.add_subplot(111)
+ax.plot(dat.iloc[:,0],dat.iloc[:,1],label = 'AC')
+ax.plot(dat.iloc[:,0],dat.iloc[:,2], label = 'CGG')
+ax.plot(dat.iloc[:,0],dat.iloc[:,3], label = 'TTAGGG')
+ax.set_yscale('log')
+ax.legend(title = 'STR')
+plt.xlabel('Number of STR Repeats')
+plt.ylabel('Number of Occurances in the Genome (log)')
+plt.title('Distribution of STR Repeats'
+"""
     

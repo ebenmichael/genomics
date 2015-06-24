@@ -157,9 +157,6 @@ public class FMIndex3 implements Serializable{
         return(this.last);
     }
     
-    public boolean contains(String s){
-        return(this.contains(new Kmer(s)));
-    }
     
     public int count(Kmer mer){
         int kmerLength = mer.length();
