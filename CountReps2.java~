@@ -29,11 +29,8 @@ public class CountReps {
           counts1.put('T', 0);
           
     BufferedReader reader1 = new BufferedReader(new FileReader(path1));
-    
     ArrayList<Base> bases1 = new ArrayList<Base>(1680373127);
-    //Base[] bases1 = new Base[1680373125];
-    
-    //char[] bases1 = new char[1680373124];
+
     //base classes for each type of base
     Base a = new Base('A');
     Base c = new Base('C');
