@@ -168,13 +168,12 @@ public class FMIndex4 implements Serializable{
         int sIndex = getFIndex(lastBase, 0);
         int eIndex = getFIndex(lastBase, countArray[baseConversion(lastBase)] - 1);
      int LRank1 = -1, LRank2 = -2;
-     int LCheck;
+     
         for(int i = kmerLength - 2; i >= 0; i--){
          String currentBase = mer.baseAt(i).toString();
-         LCheck = getLRank(sIndex - 1, currentBase);
-         LRank1 = getLRank(sIndex , currentBase);
+         LRank1 = getLRank(sIndex, currentBase);
          LRank2 = getLRank(eIndex, currentBase);
-         if(LCheck == LRank2|| LRank2 < 0)
+         if(LRank1 == LRank2|| LRank2 < 0)
           return 0;
          sIndex = getFIndex(currentBase, LRank1);
          eIndex = getFIndex(currentBase, LRank2);
