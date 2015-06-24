@@ -38,9 +38,11 @@ ax.plot(dat.iloc[:,0],dat.iloc[:,1],label = 'AC')
 ax.plot(dat.iloc[:,0],dat.iloc[:,2], label = 'CGG')
 ax.plot(dat.iloc[:,0],dat.iloc[:,3], label = 'TTAGGG')
 ax.set_yscale('log')
-ax.legend(title = 'STR')
+leg = ax.legend(title = 'STR')
 plt.xlabel('Number of STR Repeats')
 plt.ylabel('Number of Occurances in the Genome (log)')
-plt.title('Distribution of STR Repeats'
+plt.title('Distribution of STR Repeats')
+plt.setp(leg.get_title(),fontsize=32)
+
 """
     
